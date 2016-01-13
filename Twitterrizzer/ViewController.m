@@ -44,10 +44,36 @@
         
     }
     
+    result = [self addHashtagsToString:result];
+    
     self.textView.text = result;
     self.countLabel.text = [NSString stringWithFormat:@"Count: %i",(int)self.textView.text.length];
 
     
+}
+
+-(NSMutableString *)addHashtagsToString:(NSMutableString *)string {
+    
+    NSArray *words = [string componentsSeparatedByString:@""];
+    
+//    for (int i = 0; i <= words.count; i = i + 2) {
+//        [words objectatindex]
+//    }
+    
+    
+    
+    int i = 0;
+    for (NSString *word in words) {
+        
+        if (i % 2 == 0 || i == 0) {
+            word = [NSString stringWithFormat:@"#%@",word];
+        }
+        
+        i = i + 2;
+    }
+    
+    
+    return [NSMutableString new];
 }
 
 
