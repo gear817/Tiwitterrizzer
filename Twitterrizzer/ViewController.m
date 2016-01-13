@@ -54,26 +54,27 @@
 
 -(NSMutableString *)addHashtagsToString:(NSMutableString *)string {
     
-    NSArray *words = [string componentsSeparatedByString:@""];
+    NSMutableArray *words = [[NSMutableArray alloc]initWithArray:[string componentsSeparatedByString:@" "]];
     
-//    for (int i = 0; i <= words.count; i = i + 2) {
-//        [words objectatindex]
-//    }
-    
-    
+    NSMutableString *result = [NSMutableString new];
     
     int i = 0;
+    
     for (NSString *word in words) {
         
         if (i % 2 == 0 || i == 0) {
-            word = [NSString stringWithFormat:@"#%@",word];
+            
+            [result appendString:[NSString stringWithFormat:@"#%@ ", word]];
+            
+        }else {
+            [result appendString:[NSString stringWithFormat:@"%@ ", word]];
         }
         
-        i = i + 2;
+        i++;
     }
     
     
-    return [NSMutableString new];
+    return result;
 }
 
 
@@ -84,6 +85,17 @@
     } else{
         textView.text = self.lastTextViewState;
     }
+}
+
+- (IBAction)onReverseButtonTapped:(UIButton *)sender {
+     NSMutableArray *words = [[NSMutableArray alloc]initWithArray:[self.textView.text componentsSeparatedByString:@" "]];
+    for (NSString *word in words) {
+        int i = 0;
+        if (![word containsString:@"#"]) {
+            
+        }
+    }
+    
 }
 
 

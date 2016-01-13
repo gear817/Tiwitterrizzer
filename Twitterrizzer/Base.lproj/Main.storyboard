@@ -39,6 +39,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4NR-u2-0xf">
+                                <rect key="frame" x="231" y="285" width="70" height="30"/>
+                                <state key="normal" title="Reverse"/>
+                                <connections>
+                                    <action selector="onReverseButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ewo-Ki-cmQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
