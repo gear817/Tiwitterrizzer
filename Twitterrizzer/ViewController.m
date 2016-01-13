@@ -63,22 +63,31 @@
     for (NSString *word in words) {
         
         if (i % 2 == 0 || i == 0) {
-            
-            [result appendString:[NSString stringWithFormat:@"#%@ ", word]];
+            [result appendString:@" #"];
+            [result appendString:word];
             
         }else {
-            [result appendString:[NSString stringWithFormat:@"%@ ", word]];
+            [result appendString:@" "];
+            [result appendString:word];
         }
         
         i++;
     }
     
+    if ([result hasPrefix:@" "]) {
+        result = [[NSMutableString alloc]initWithString:[result substringFromIndex:1]];
+    }
     
     return result;
 }
 
 
 -(void)textViewDidChange:(UITextView *)textView {
+    if ([textView.text hasPrefix:@" "]) {
+        NSLog(@"Textview has space in front");
+        textView.text = [textView.text substringFromIndex:1];
+    }
+    
     if (textView.text.length <= 140) {
         self.countLabel.text = [NSString stringWithFormat:@"Count: %i",(int)self.textView.text.length];
         self.lastTextViewState = textView.text;
@@ -88,14 +97,37 @@
 }
 
 - (IBAction)onReverseButtonTapped:(UIButton *)sender {
-     NSMutableArray *words = [[NSMutableArray alloc]initWithArray:[self.textView.text componentsSeparatedByString:@" "]];
+    NSMutableArray *words = [[NSMutableArray alloc]initWithArray:[self.textView.text componentsSeparatedByString:@" "]];
+    NSMutableString *result = [NSMutableString new];
+    
+    
     for (NSString *word in words) {
-        int i = 0;
+        
+        
         if (![word containsString:@"#"]) {
+            NSMutableString *reversedWord = [NSMutableString new];
             
+            for (int i = (int)word.length - 1; i >= 0; i--) {
+                //Reserse code              //string                        //char
+                [reversedWord appendString:[NSString stringWithFormat:@"%c",[word characterAtIndex:i]]];
+            }
+            [result appendString:@" "];
+            [result appendString:reversedWord];
+            
+        }else {
+            [result appendString:@" "];
+            [result appendString:word];
         }
+        
+        
+        
     }
     
+    if ([result hasPrefix:@" "]) {
+        result = [[NSMutableString alloc]initWithString:[result substringFromIndex:1]];
+    }
+    
+    self.textView.text = result;
 }
 
 
