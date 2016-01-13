@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
-
+@property NSString* lastTextViewState;
 @end
 
 @implementation ViewController
@@ -45,14 +45,20 @@
     }
     
     self.textView.text = result;
-    
+    self.countLabel.text = [NSString stringWithFormat:@"Count: %i",(int)self.textView.text.length];
+
     
 }
 
 
 -(void)textViewDidChange:(UITextView *)textView {
-    //NSLog(@"%lu",(unsigned long)self.textView.text.length);
-    self.countLabel.text = [NSString stringWithFormat:@"Count: %i",(int)self.textView.text.length];
+    if (textView.text.length <= 140) {
+        self.countLabel.text = [NSString stringWithFormat:@"Count: %i",(int)self.textView.text.length];
+        self.lastTextViewState = textView.text;
+    } else{
+        textView.text = self.lastTextViewState;
+    }
 }
+
 
 @end
