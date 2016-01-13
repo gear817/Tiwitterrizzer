@@ -8,9 +8,10 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
 
 @end
 
@@ -27,9 +28,31 @@
 }
 
 - (IBAction)onTwitterrizeButtonPressed:(UIButton *)sender {
-    NSString *textFieldString = self.textView.text;
-    NSMutableString *result = [[NSMutableString alloc] initWithString:textFieldString];
-    NSArray *vowels = @[
+
+    NSMutableString *result = [[NSMutableString alloc] initWithString:self.textView.text];
+    
+    NSArray *vowels = @[@"a",@"e",@"i",@"o",@"u"];
+    
+    for (int i = 0; i < vowels.count; i++) {
+        
+        NSRange wholeString = NSMakeRange(0, result.length);
+        
+        [result replaceOccurrencesOfString:vowels[i]
+                                withString:@""
+                                   options:NSCaseInsensitiveSearch
+                                     range:wholeString];
+        
+    }
+    
+    self.textView.text = result;
+    
+    
+}
+
+
+-(void)textViewDidChange:(UITextView *)textView {
+    //NSLog(@"%lu",(unsigned long)self.textView.text.length);
+    self.countLabel.text = [NSString stringWithFormat:@"Count: %i",(int)self.textView.text.length];
 }
 
 @end
